@@ -3,11 +3,4 @@ pip install urllib3
 pip install urllib2
 pip install urllib
 pip install --upgrade gtfs-realtime-bindings
-
-main.js
-
-
-pip install pygresql
-
-
-
+pip install psycopg2
