@@ -60,23 +60,21 @@ map.on('singleclick', function(evt) {
   var url = wmsSource_ferries.getGetFeatureInfoUrl(
     coordinate, viewResolution, 'EPSG:3857',
     {'INFO_FORMAT': 'text/html',
-    'propertyName': 'label,time_text,bearing,speed'});
+    'propertyName': 'boat,time,bearing,speed'});
     if (url) {
       // content.innerHTML = '<p>' + url + '</p>';
       content.innerHTML = '<iframe seamless width="450px" height="125px" border-width="0px" border-radius:"200px" seamless src="' + url + '"></iframe>';
       // content.innerHTML = url;
       overlay.setPosition(coordinate);
-      // document.getElementById('info').innerHTML =
-      //     '<iframe seamless src="' + url + '"></iframe>';
     }
   });
 
-  var refreshLayer = function(){
-    wmsSource_ferries.updateParams({"time": Date.now()});
-    // wmsSource.refresh();
-    updateTimer = setTimeout(function() {
-      refreshLayer();
-    }, 10000);
-  }
+var refreshLayer = function(){
+  wmsSource_ferries.updateParams({"time": Date.now()});
+  // wmsSource.refresh();
+  updateTimer = setTimeout(function() {
+    refreshLayer();
+  }, 5000);
+}
 
-  refreshLayer();
+refreshLayer();
