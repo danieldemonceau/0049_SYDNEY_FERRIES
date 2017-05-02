@@ -1,9 +1,7 @@
-DROP TRIGGER deleteduplicate_trigger ON ferries_hist;
 DROP FUNCTION deleteduplicate();
 CREATE OR REPLACE FUNCTION deleteduplicate()
 RETURNS void
 LANGUAGE plpgsql
-SECURITY DEFINER
 AS $BODY$
 DECLARE
    vid text;
@@ -30,9 +28,3 @@ BEGIN
   );
 END
 $BODY$;
-
--- CREATE TRIGGER deleteduplicate_trigger
--- AFTER INSERT
--- ON ferries_hist
--- FOR EACH ROW
--- EXECUTE PROCEDURE deleteduplicate();

@@ -48,7 +48,7 @@ var overlay = new ol.Overlay(({
 var map = new ol.Map({
   overlays: [overlay],
   target: 'map',
-  layers: [osmLayer/*, wmsLayer_lines*/, wmsLayer_ferries],
+  layers: [osmLayer, wmsLayer_lines, wmsLayer_ferries],
   view: view
 });
 
@@ -62,19 +62,16 @@ map.on('singleclick', function(evt) {
     {'INFO_FORMAT': 'text/html',
     'propertyName': 'boat,time,bearing,speed'});
     if (url) {
-      // content.innerHTML = '<p>' + url + '</p>';
-      content.innerHTML = '<iframe seamless width="450px" height="125px" border-width="0px" border-radius:"200px" seamless src="' + url + '"></iframe>';
-      // content.innerHTML = url;
+      content.innerHTML = '<iframe seamless width="340px" height="60px" border-width="0px" border-radius:"200px" seamless src="' + url + '"></iframe>';
       overlay.setPosition(coordinate);
     }
   });
 
 var refreshLayer = function(){
   wmsSource_ferries.updateParams({"time": Date.now()});
-  // wmsSource.refresh();
   updateTimer = setTimeout(function() {
     refreshLayer();
-  }, 5000);
+  }, 10000);
 }
 
 refreshLayer();
