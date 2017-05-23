@@ -6,10 +6,9 @@ import time
 import psycopg2
 import threading
 
-
 hostname = '192.168.1.87'
 username = 'themagiscian'
-password = ''
+password = '***'
 database = 'sydney_transport'
 
 transport = 'ferries'
@@ -19,15 +18,15 @@ COUNT = 0
 def doQuery(conn, query, data):
     cur = conn.cursor()
     cur.execute(query, data)
-    if "INSERT INTO" not in cur.mogrify(query):
-        print cur.mogrify(query)
+    # if "INSERT INTO" not in cur.mogrify(query):
+    #     print cur.mogrify(query)
 
 try:
     connection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     feed = gtfs_realtime_pb2.FeedMessage()
     req = urllib2.Request('https://api.transport.nsw.gov.au/v1/gtfs/vehiclepos/' + transport)
     req.add_header('Accept', 'application/x-google-protobuf')
-    req.add_header('Authorization', 'apikey ')
+    req.add_header('Authorization', 'apikey ***')
 except e:
     print e
 
@@ -49,6 +48,7 @@ def getPositions():
         doQuery(connection, sql.SQL("VACUUM ANALYZE {};").format(sql.Identifier(transport + '_hist')), None)
     else:
         doQuery(connection, """COMMIT""", None)
+    print 'Iteration : ' + str(COUNT)
     COUNT += 1
 
 getPositions()
